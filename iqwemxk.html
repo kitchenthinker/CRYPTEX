@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Загадка для тебя - Этап 3</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="phase-3" class="riddle-phase" style="display: block">
+        <h1 class="phase-title">Молодчина!</h1>
+        <p class="intro-text">
+          Остался лишь шаг, но не забывай <p class="instruction">о пройденном пути и...</p>
+        </p>
+        <p class="riddle-text">
+          «А где-то в другом месте...»<br />
+          «Когда я говорю "беги" - беги!»<br />
+          «Изменить полярность потока нейтронов!»<br />
+          «А теперь послушайте меня!»<br />
+          «Блестяще!»<br />
+          «Джеронимо!»
+        </p>
+
+        <p class="instruction">...все будет в порядке:)</p>
+        <div class="drag-and-drop-container" id="draggable-letters">
+          <div class="draggable-letter" draggable="true">A</div>
+          <div class="draggable-letter" draggable="true">D</div>
+          <div class="draggable-letter" draggable="true">I</div>
+          <div class="draggable-letter" draggable="true">R</div>
+          <div class="draggable-letter" draggable="true">T</div>
+          <div class="draggable-letter" draggable="true">S</div>
+        </div>
+        <div class="final-word-dropzone">
+          <div class="final-letter-slot" data-index="0"></div>
+          <div class="final-letter-slot" data-index="1"></div>
+          <div class="final-letter-slot" data-index="2"></div>
+          <div class="final-letter-slot" data-index="3"></div>
+          <div class="final-letter-slot" data-index="4"></div>
+          <div class="final-letter-slot" data-index="5"></div>
+        </div>
+        <button id="check-phase-3-button">Проверить</button>
+        <p id="feedback3" class="feedback"></p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

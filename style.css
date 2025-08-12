@@ -1,0 +1,334 @@
+/* Основные стили */
+body {
+  background: #0d0d0d;
+  color: #f2f2f2;
+  font-family: "Courier New", Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  position: relative;
+  user-select: none;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  border: 2px solid #8b4513;
+}
+
+h1.phase-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #ff9933;
+  animation: neon-glow-title 1.5s ease-in-out infinite alternate;
+}
+
+.intro-text,
+.riddle-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #e0e0e0;
+}
+
+.instruction {
+  font-weight: bold;
+  color: #ff9933;
+  margin-top: 20px;
+}
+
+/* Этап 1: Загадки */
+.riddle-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  background: #333;
+  color: #ff9933;
+  border: 1px solid #ff9933;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.tab-button:hover,
+.tab-button.active {
+  background-color: #ff9933;
+  color: #1a1a1a;
+}
+
+.tab-content {
+  display: none;
+  background: #2a2a2a;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px dashed #555;
+  min-height: 100px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.word-input {
+  width: 80px;
+  height: 40px;
+  text-align: center;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  background: #2a2a2a;
+  border: 1px solid #ff9933;
+  color: #f2f2f2;
+  border-radius: 5px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.word-input:focus {
+  outline: none;
+  border-color: #ffcc00;
+  box-shadow: 0 0 5px #ffcc00;
+}
+
+button {
+  background: #ff9933;
+  color: #1a1a1a;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ffcc00;
+}
+
+.feedback {
+  margin-top: 15px;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* Этап 2: Криптекс */
+.cryptex-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.cryptex-wheel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 100px;
+  background: #2a2a2a;
+  border: 2px solid #8b4513;
+  border-radius: 10px;
+  font-size: 2rem;
+  color: #ff9933;
+  position: relative;
+}
+
+.cryptex-arrow {
+  position: absolute;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #e0e0e0;
+}
+
+.cryptex-arrow.up {
+  top: 5px;
+}
+
+.cryptex-arrow.down {
+  bottom: 5px;
+}
+
+/* Этап 3: Drag-and-drop */
+.drag-and-drop-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  min-height: 50px;
+  background: #2a2a2a;
+  border: 1px dashed #555;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.draggable-letter {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #333;
+  border: 2px solid #ff9933;
+  color: #ff9933;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: grab;
+  border-radius: 5px;
+  transition: transform 0.2s;
+}
+
+.draggable-letter:active {
+  cursor: grabbing;
+}
+
+.final-word-dropzone {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  min-height: 60px;
+}
+
+.final-letter-slot {
+  width: 60px;
+  height: 60px;
+  background: #2a2a2a;
+  border: 2px dashed #555;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: border-color 0.3s;
+}
+
+.final-letter-slot.filled {
+  border: 2px solid #ff9933;
+}
+
+/* Анимации */
+.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.animate-fade-out-up {
+  animation: fadeOutUp 1s ease-out forwards;
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes neon-glow-title {
+  from {
+    text-shadow: 0 0 10px #ff9933, 0 0 20px #ff9933, 0 0 30px #ff9933,
+      0 0 40px #ffcc00, 0 0 70px #ffcc00, 0 0 80px #ffcc00, 0 0 100px #ffcc00,
+      0 0 150px #ffcc00;
+  }
+  to {
+    text-shadow: 0 0 5px #ff9933, 0 0 10px #ff9933, 0 0 15px #ff9933,
+      0 0 20px #ffcc00, 0 0 35px #ffcc00, 0 0 40px #ffcc00, 0 0 50px #ffcc00,
+      0 0 75px #ffcc00;
+  }
+}
+
+.cryptex-wheel span:not(.cryptex-arrow) {
+  /* ... (существующие стили, например, font-size, color) */
+  display: inline-block; /* Это важно для работы transform */
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+/* Анимация исчезновения буквы */
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+}
+
+/* Анимация появления новой буквы */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-out-down {
+  animation: fadeOutDown 0.2s ease-in-out forwards;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.2s ease-in-out forwards;
+}
