@@ -310,6 +310,7 @@ function checkPhase3() {
 
 // --- ИНИЦИАЛИЗАЦИЯ ---
 document.addEventListener("DOMContentLoaded", () => {
+  createCarrots();
   document.body.addEventListener(
     "click",
     () => {
@@ -390,3 +391,25 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener("beforeunload", saveMusicState);
+
+// --- НОВАЯ ЛОГИКА ДЛЯ МОРКОВОК ---
+function createCarrots() {
+  const carrotContainer = document.getElementById("carrot-container");
+  const numCarrots = 30; // Количество морковок
+
+  for (let i = 0; i < numCarrots; i++) {
+    const carrot = document.createElement("div");
+    carrot.classList.add("carrot");
+
+    // Случайные значения для начального положения и скорости
+    const leftPosition = Math.random() * 100;
+    const animationDuration = Math.random() * 10 + 10; // от 10 до 20 секунд
+    const animationDelay = Math.random() * 20; // от 0 до 20 секунд
+
+    carrot.style.left = `${leftPosition}vw`;
+    carrot.style.animationDuration = `${animationDuration}s`;
+    carrot.style.animationDelay = `${animationDelay}s`;
+
+    carrotContainer.appendChild(carrot);
+  }
+}
