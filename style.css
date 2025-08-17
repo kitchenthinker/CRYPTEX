@@ -376,3 +376,46 @@ button:hover {
     opacity: 0;
   }
 }
+
+#popup-container {
+  /* Стиль для начального положения */
+  position: fixed;
+  right: 20px;
+  bottom: -2000px; /* Скрывает контейнер за нижней границей экрана */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+
+  /* Добавляем плавность для анимации */
+  transition: bottom 0.5s ease-in-out;
+}
+
+#popup-container.show {
+  /* Стиль для конечного положения (появляется на экране) */
+  bottom: 20px; /* Показывает контейнер в 20px от нижнего края */
+}
+
+#popup-container.hide {
+  /* Стиль для конечного положения (появляется на экране) */
+  bottom: -2000px;
+}
+#popup-sticker {
+  width: 150px;
+  height: auto;
+}
+
+#popup-phrase {
+  font-family: "Arial", sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 10px;
+  color: #e74c3c;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}

@@ -23,6 +23,8 @@ const backgroundMusic = new Audio("background_music.mp3");
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.1;
 
+incorrectAttemptsCount = 0;
+
 // --- ЭЛЕМЕНТЫ И СОСТОЯНИЕ ---
 const container = document.querySelector(".container");
 const feedback1 = document.getElementById("feedback1");
@@ -32,10 +34,13 @@ const feedback3 = document.getElementById("feedback3");
 // --- ОБЩИЕ ФУНКЦИИ ---
 function handleIncorrectAnswer(feedbackElement) {
   container.classList.add("shake");
+  incorrectAttemptsCount++;
+  // Вызываем нашу функцию
+  onIncorrectAttempt(incorrectAttemptsCount);
   setTimeout(() => {
     container.classList.remove("shake");
   }, 500);
-  feedbackElement.textContent = "Неверный ответ.";
+  feedbackElement.textContent = "Нет, здесь что-то не так.";
   setTimeout(() => {
     feedbackElement.textContent = "";
   }, 5000);
@@ -112,6 +117,7 @@ function checkPhase1() {
   const decodedCorrectWords = CORRECT_PHRASE_WORDS.map((word) => atob(word));
 
   if (JSON.stringify(userAnswer) === JSON.stringify(decodedCorrectWords)) {
+    incorrectAttemptsCount = 0;
     document.getElementById("phase-1").style.display = "none";
     document.getElementById("phase-1-final").style.display = "block";
 
@@ -184,6 +190,7 @@ function checkPhase2() {
 
   if (userAnswer === decodedScrambled) {
     saveMusicState();
+    incorrectAttemptsCount = 0;
     localStorage.setItem("phase2Completed", "true");
     window.location.href = "iqwemxk.html";
   } else {
@@ -300,6 +307,7 @@ function checkPhase3() {
   const decodedFinalWord = atob(CORRECT_FINAL_WORD);
 
   if (finalAnswer === decodedFinalWord) {
+    incorrectAttemptsCount = 0;
     saveMusicState();
     localStorage.clear();
     window.location.href = "asdmqwle.html";
@@ -412,4 +420,65 @@ function createCarrots() {
 
     carrotContainer.appendChild(carrot);
   }
+}
+
+// Определяем массив стикеров
+const stickers = [
+  {
+    name: "kt-sticker",
+    image: "kt_sticker.png",
+  },
+  {
+    name: "fet-sticker",
+    image: "fet_sticker.png",
+  },
+];
+
+// Определяем массив фраз
+const phrases = [
+  "Заяц, я в тебя верю!",
+  "Ира, я в тебя верю!",
+  "Ира, ты справишься!",
+  "Я с тобой до конца!",
+  "...название моего домашнего видео!",
+  "Не в ту сторону, женщина! :)",
+  "Да, загадки в Сайлент Хилле и то легче было...",
+];
+
+// Функция для получения случайного элемента из массива
+function getRandomElement(arr) {
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
+}
+
+function onIncorrectAttempt(attemptNumber) {
+  if (attemptNumber > 0 && attemptNumber % 3 === 0) {
+    const selectedSticker = getRandomElement(stickers);
+    const selectedPhrase = getRandomElement(phrases);
+
+    showPopup(selectedSticker.image, selectedPhrase);
+  }
+}
+
+function showPopup(stickerImage, phraseText) {
+  const popupContainer = document.getElementById("popup-container");
+  const popupSticker = document.getElementById("popup-sticker");
+  const popupPhrase = document.getElementById("popup-phrase");
+
+  // Устанавливаем src для изображения и текст для фразы
+  popupSticker.src = stickerImage;
+  popupPhrase.textContent = phraseText;
+
+  // Сначала убеждаемся, что элемент находится в начальном состоянии (скрыт)
+  popupContainer.classList.remove("show");
+
+  // Используем requestAnimationFrame для плавного появления
+  requestAnimationFrame(() => {
+    popupContainer.classList.add("show");
+  });
+
+  // Устанавливаем таймер для скрытия
+  setTimeout(() => {
+    popupContainer.classList.remove("show");
+  }, 3000);
 }
