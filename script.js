@@ -393,6 +393,17 @@ document.addEventListener("DOMContentLoaded", () => {
   restoreMusicState();
 
   // Этап 1
+
+  const inputs = document.querySelectorAll(".word-input");
+  inputs.forEach((input) => {
+    input.addEventListener("input", () => {
+      // Сброс стилей при вводе
+      input.style.border = "";
+      input.style.backgroundColor = "";
+      input.style.color = "";
+    });
+  });
+
   if (document.getElementById("phase-1")) {
     const tabButtons = document.querySelectorAll(".tab-button");
     const tabContents = document.querySelectorAll(".tab-content");
