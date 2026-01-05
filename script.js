@@ -99,10 +99,52 @@ async function loadPhase1FinalContent() {
   }
 }
 
+// function checkPhase1() {
+//   let inputs = document.querySelectorAll(".word-input");
+//   let userAnswer = [];
+
+//   for (let input of inputs) {
+//     let value = input.value.toUpperCase().trim();
+//     if (!/^[A-Z]+$/.test(value)) {
+//       handleIncorrectAnswer(feedback1);
+//       feedback1.textContent = "Ошибка: Только латинские буквы.";
+//       return;
+//     }
+//     userAnswer.push(value);
+//   }
+
+//   // Расшифровываем правильные ответы для сравнения
+//   const decodedCorrectWords = CORRECT_PHRASE_WORDS.map((word) => atob(word));
+
+//   if (JSON.stringify(userAnswer) === JSON.stringify(decodedCorrectWords)) {
+//     incorrectAttemptsCount = 0;
+//     document.getElementById("phase-1").style.display = "none";
+//     document.getElementById("phase-1-final").style.display = "block";
+
+//     loadPhase1FinalContent().then(() => {
+//       const fullPhrase = document.getElementById("full-phrase");
+//       const initialism = document.getElementById("initialism");
+//       fullPhrase.style.animation = "fadeOutUp 1s ease-out forwards";
+//       setTimeout(() => {
+//         fullPhrase.style.display = "none";
+//         initialism.style.display = "block";
+//         initialism.style.animation = "fadeIn 1.5s ease-in forwards";
+//       }, 1000);
+//     });
+//   } else {
+//     handleIncorrectAnswer(feedback1);
+//   }
+// }
+
 function checkPhase1() {
-  let inputs = document.querySelectorAll(".word-input");
+  const inputs = document.querySelectorAll(".word-input");
   let userAnswer = [];
 
+  // Расшифровываем правильные ответы заранее
+  const decodedCorrectWords = CORRECT_PHRASE_WORDS.map((word) => atob(word));
+  let correctCount = 0;
+
+  // 1. Сначала проверяем валидность символов (чтобы не красить, если введен мусор)
   for (let input of inputs) {
     let value = input.value.toUpperCase().trim();
     if (!/^[A-Z]+$/.test(value)) {
@@ -110,13 +152,30 @@ function checkPhase1() {
       feedback1.textContent = "Ошибка: Только латинские буквы.";
       return;
     }
-    userAnswer.push(value);
   }
 
-  // Расшифровываем правильные ответы для сравнения
-  const decodedCorrectWords = CORRECT_PHRASE_WORDS.map((word) => atob(word));
+  // 2. Проходим по полям, собираем ответ и красим инпуты
+  inputs.forEach((input, index) => {
+    let value = input.value.toUpperCase().trim();
+    userAnswer.push(value);
 
-  if (JSON.stringify(userAnswer) === JSON.stringify(decodedCorrectWords)) {
+    if (value === decodedCorrectWords[index]) {
+      // --- ВЕРНО (ЗЕЛЕНЫЙ) ---
+      correctCount++;
+      input.style.border = "2px solid #4CAF50"; // Зеленая рамка
+      input.style.backgroundColor = "rgba(76, 175, 80, 0.2)"; // Светло-зеленый фон
+      input.style.color = "#1b5e20"; // Темно-зеленый текст
+    } else {
+      // --- НЕВЕРНО (КРАСНЫЙ) ---
+      input.style.border = "2px solid #F44336"; // Красная рамка
+      input.style.backgroundColor = "rgba(244, 67, 54, 0.2)"; // Светло-красный фон
+      input.style.color = "#b71c1c"; // Темно-красный текст
+    }
+  });
+
+  // 3. Финальная проверка
+  if (correctCount === decodedCorrectWords.length) {
+    // УСПЕХ
     incorrectAttemptsCount = 0;
     document.getElementById("phase-1").style.display = "none";
     document.getElementById("phase-1-final").style.display = "block";
@@ -132,7 +191,9 @@ function checkPhase1() {
       }, 1000);
     });
   } else {
+    // НЕУДАЧА
     handleIncorrectAnswer(feedback1);
+    feedback1.textContent = `Верно слов: ${correctCount} из ${decodedCorrectWords.length}.`;
   }
 }
 
@@ -484,4 +545,3 @@ function showPopup(stickerImage, phraseText) {
     popupContainer.classList.remove("show");
   }, 3000);
 }
-
