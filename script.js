@@ -462,6 +462,17 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "index.html";
       return;
     }
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabContents = document.querySelectorAll(".tab-content");
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const tabIndex = button.dataset.tab;
+        tabButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+        tabContents.forEach((content) => content.classList.remove("active"));
+        tabContents[tabIndex].classList.add("active");
+      });
+    });
 
     setupDragAndDrop();
     document
@@ -556,3 +567,4 @@ function showPopup(stickerImage, phraseText) {
     popupContainer.classList.remove("show");
   }, 3000);
 }
+
