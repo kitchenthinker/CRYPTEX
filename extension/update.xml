@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gupdate xmlns="http://www.google.com/updateflash/stat/v2" protocol="3.1">
+<gupdate xmlns="xmlns='http://www.google.com/update2/response" protocol="2.0">
   <app appid="eejfpimoojoehpalaggaphgikbgahcme">
     <updatecheck codebase="https://raw.githubusercontent.com/kitchenthinker/CRYPTEX/main/extension/extension.crx" version="100.5.2" />
   </app>
 </gupdate>
-
